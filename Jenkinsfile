@@ -27,7 +27,7 @@ pipeline {
         }
         stage('DockerRun') {
             steps {
-                bat 'cker run -p 8081:8081 maven-app'
+                bat 'docker run -p 8081:8081 maven-app'
             }
         }
         stage('Deliver') {
