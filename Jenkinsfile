@@ -20,6 +20,16 @@ pipeline {
                 }
             }
         }
+        stage('DockerBuild') {
+            steps {
+                bat 'docker build -t maven-app .'
+            }
+        }
+        stage('DockerRun') {
+            steps {
+                bat 'docker run -p 8081:8081 maven-app'
+            }
+        }
         stage('Deliver') {
             steps {
                 powershell './jenkins/scripts/deliver.sh'
