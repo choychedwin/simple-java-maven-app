@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     tools {
         maven 'Maven 3.9.12'
         jdk 'JDK 21'
@@ -18,6 +18,16 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
+            }
+        }
+        stage('DockerBuild') {
+            steps {
+                bat 'docker build -t maven-app .'
+            }
+        }
+        stage('DockerRun') {
+            steps {
+                bat 'cker run -p 8081:8081 maven-app'
             }
         }
         stage('Deliver') {
